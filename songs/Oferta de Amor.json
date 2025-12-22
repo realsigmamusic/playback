@@ -1,0 +1,14 @@
+{
+  "title": "Oferta de Amor",
+  "bpm": 124,
+  "sections": [
+    { "label": "INTRO", "time": 0 },
+    { "label": "VERSE", "time": 3.871 },
+    { "label": "CHORUS", "time": 19.355 },
+    { "label": "VERSE", "time": 34.839 },
+    { "label": "CHORUS", "time": 50.323 },
+    { "label": "BRIDGE", "time": 58.065 },
+    { "label": "ENDING", "time": 61.935 },
+    { "label": "END", "time": 65.323 }
+  ]
+}

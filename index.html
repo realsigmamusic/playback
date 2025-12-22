@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Playback Pro</title>
+	
+	<link rel="manifest" href="manifest.json">
+	<meta name="theme-color" content="#212529">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="style.css"></link>
+</head>
+<body>
+
+	<header class="app-header">
+		<button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
+			<i class="bi bi-list fs-2"></i>
+		</button>
+		<div class="text-center">
+			<div id="song-title" class="small fw-bold text-truncate" style="max-width: 150px;">Selecione Música</div>
+			<div id="timer" class="timer-display">00:00</div>
+		</div>
+		<div id="loader" class="spinner-border spinner-border-sm text-primary d-none"></div>
+		<div id="ready" class="text-success d-none"><i class="bi bi-check-circle-fill fs-3"></i></div>
+	</header>
+
+	<main class="main-content">
+		<div id="empty-state" class="text-center mt-5 text-muted">
+			<i class="bi bi-music-note-beamed display-1"></i>
+			<p class="mt-3">Abra o menu e carregue a pasta</p>
+		</div>
+		<div id="sections-grid" class="mobile-grid"></div>
+	</main>
+
+	<footer class="app-footer">
+		<button id="btn-loop" class="control-btn" onclick="toggleLoop()" title="Loop">
+			<i class="bi bi-arrow-repeat"></i>
+		</button>
+
+		<button id="btn-stop" class="control-btn text-danger" onclick="stopAudio()" title="Stop Imediato">
+			<i class="bi bi-stop-fill fs-2"></i>
+		</button>
+
+		<button id="btn-play" class="control-btn btn-play-lg" onclick="togglePlay()" disabled>
+			<i class="bi bi-play-fill pl-1"></i>
+		</button>
+
+		<button id="btn-fade" class="control-btn text-warning" onclick="triggerFadeOut()" title="Fade Out (3s)">
+			<i class="bi bi-graph-down-arrow"></i>
+		</button>
+	</footer>
+
+	<div class="offcanvas offcanvas-start" id="menu">
+		<div class="offcanvas-header bg-dark text-white">
+			<h5 class="offcanvas-title">Setlist</h5>
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+		</div>
+		<div class="p-3 border-bottom bg-light text-center">
+			<label class="btn btn-primary w-100 py-3 fw-bold shadow-sm">
+				<i class="bi bi-folder-plus"></i> CARREGAR PASTA
+				<input type="file" id="folder-input" webkitdirectory multiple hidden>
+			</label>
+			<small class="text-muted mt-2 d-block">Pasta com MP3 + JSON</small>
+		</div>
+		<div class="offcanvas-body p-0">
+			<div class="list-group list-group-flush" id="song-list"></div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
