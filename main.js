@@ -6,6 +6,11 @@ document.addEventListener('click', async () => {
 	}
 }, { once: true });
 
+// --- PROTEÇÃO CONTRA SAÍDA ACIDENTAL ---
+window.addEventListener('beforeunload', (e) => {
+	if (isPlaying) { e.preventDefault(); e.returnValue = ''; return ''; }
+});
+
 // --- AUDIO ENGINE PROFISSIONAL ---
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let audioBuffer = null;
@@ -30,7 +35,6 @@ const offcanvas = new bootstrap.Offcanvas('#menu');
 // --- CARREGAMENTO ---
 document.getElementById('folder-input').addEventListener('change', async (e) => {
 	const files = Array.from(e.target.files);
-	// Aceita mp3, wav, ogg e m4a
 	const audioFiles = files.filter(f => f.name.toLowerCase().match(/\.(mp3|wav|ogg|m4a)$/));
 	const jsonFiles = files.filter(f => f.name.toLowerCase().endsWith('.json'));
 	playlist = [];
@@ -62,7 +66,6 @@ function renderPlaylist() {
 	document.getElementById('empty-state').classList.add('d-none');
 
 	list.innerHTML = playlist.map((s, i) => {
-		// Monta a linha de detalhes
 		let details = [];
 		if (s.artist) details.push(s.artist);
 		if (s.bpm) details.push(s.bpm + " BPM");
@@ -83,7 +86,6 @@ async function loadSong(i) {
 	currentSong = playlist[i];
 	sections = currentSong.sections;
 
-	// Feedback visual imediato
 	document.getElementById('song-title').innerText = currentSong.name;
 	document.getElementById('loader').classList.remove('d-none');
 	document.getElementById('btn-play').disabled = true;
@@ -102,11 +104,11 @@ async function loadSong(i) {
 
 		renderGrid();
 
-		// Prepara para tocar do início (sem dar play)
 		currentSectionIndex = 0;
 		pausedAt = sections[0].time;
 		updateTimerVisual(pausedAt);
 		updateButtonStyles();
+		updateProgressBar(pausedAt); // Zera barra
 
 		offcanvas.hide();
 
@@ -123,7 +125,7 @@ function renderGrid() {
 	`).join('');
 }
 
-// --- ENGINE DE PLAYBACK (ZERO ATRASO) ---
+// --- ENGINE DE PLAYBACK ---
 
 function playAudio(offset, when = 0) {
 	const startTimeAbs = (when === 0) ? audioCtx.currentTime : when;
@@ -161,6 +163,7 @@ function stopAudio() {
 
 	updateUI(false);
 	updateButtonStyles();
+	updateProgressBar(0); // Reseta barra
 	cancelAnimationFrame(animId);
 	document.getElementById('timer').innerText = "00:00";
 }
@@ -172,9 +175,9 @@ function triggerFadeOut() {
 
 	const now = audioCtx.currentTime;
 	gainNode.gain.setValueAtTime(gainNode.gain.value, now);
-	gainNode.gain.linearRampToValueAtTime(0, now + 3);
+	gainNode.gain.linearRampToValueAtTime(0, now + 5);
 
-	setTimeout(() => stopAudio(), 3000);
+	setTimeout(() => stopAudio(), 5000);
 }
 
 function togglePlay() {
@@ -189,7 +192,7 @@ function togglePlay() {
 	}
 }
 
-// --- LÓGICA INTELIGENTE (LOOKAHEAD) ---
+// --- LÓGICA INTELIGENTE (LOOKAHEAD + PROGRESS BAR) ---
 function startLogic() {
 	cancelAnimationFrame(animId);
 
@@ -198,6 +201,7 @@ function startLogic() {
 
 		const now = audioCtx.currentTime - startTime;
 		updateTimerVisual(now);
+		updateProgressBar(now); // ATUALIZA A BARRA
 
 		if (currentSectionIndex !== -1 && sections[currentSectionIndex + 1]) {
 			const nextSec = sections[currentSectionIndex + 1];
@@ -205,7 +209,6 @@ function startLogic() {
 
 			if (timeRemaining < 0.2 && timeRemaining > 0 && !isScheduled) {
 				isScheduled = true;
-
 				const switchTimeAbs = audioCtx.currentTime + timeRemaining;
 
 				if (loopEnabled) {
@@ -238,6 +241,25 @@ function startLogic() {
 	check();
 }
 
+// --- CALCULA A BARRA DE PROGRESSO ---
+function updateProgressBar(currentTime) {
+	if (currentSectionIndex === -1 || !sections[currentSectionIndex]) {
+		document.getElementById('section-progress').style.width = '0%';
+		return;
+	}
+
+	const currentSec = sections[currentSectionIndex];
+	const nextSecTime = sections[currentSectionIndex + 1] ? sections[currentSectionIndex + 1].time : audioBuffer.duration;
+	
+	const duration = nextSecTime - currentSec.time;
+	const elapsed = currentTime - currentSec.time;
+
+	let percent = (elapsed / duration) * 100;
+	percent = Math.max(0, Math.min(100, percent)); // Trava entre 0 e 100
+	
+	document.getElementById('section-progress').style.width = `${percent}%`;
+}
+
 function performSeamlessSwitch(whenAbs, offset, newIdx) {
 	playAudio(offset, whenAbs);
 	if (sourceNode) sourceNode.stop(whenAbs);
@@ -267,6 +289,7 @@ function jumpToSection(i, auto) {
 	nextSectionIndex = -1;
 	pausedAt = sections[i].time;
 	updateButtonStyles();
+	updateProgressBar(pausedAt);
 	if (auto) { playAudio(pausedAt); }
 	else { updateTimerVisual(pausedAt); }
 }
@@ -295,13 +318,3 @@ function toggleLoop() {
 	document.getElementById('btn-loop').classList.toggle('loop-active', loopEnabled);
 	if (navigator.vibrate) navigator.vibrate(50);
 }
-
-// --- PROTEÇÃO CONTRA FECHAMENTO ACIDENTAL ---
-window.addEventListener('beforeunload', (e) => {
-    // Só bloqueia se estiver tocando algo
-    if (isPlaying) {
-        e.preventDefault();
-        e.returnValue = ''; // Padrão para navegadores modernos exibirem o alerta
-        return '';
-    }
-});
