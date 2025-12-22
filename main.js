@@ -295,3 +295,13 @@ function toggleLoop() {
 	document.getElementById('btn-loop').classList.toggle('loop-active', loopEnabled);
 	if (navigator.vibrate) navigator.vibrate(50);
 }
+
+// --- PROTEÇÃO CONTRA FECHAMENTO ACIDENTAL ---
+window.addEventListener('beforeunload', (e) => {
+    // Só bloqueia se estiver tocando algo
+    if (isPlaying) {
+        e.preventDefault();
+        e.returnValue = ''; // Padrão para navegadores modernos exibirem o alerta
+        return '';
+    }
+});

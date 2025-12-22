@@ -1,0 +1,52 @@
+{
+	"title": "Eu Só Quero Adorar",
+	"artist": "Gerson Rufino",
+	"key": "C",
+	"bpm": 70,
+	"sections": [
+		{
+			"label": "intro",
+			"time": 3.429
+		},
+		{
+			"label": "verso",
+			"time": 30.857
+		},
+		{
+			"label": "pré-refrão",
+			"time": 58.286
+		},
+		{
+			"label": "refrão",
+			"time": 85.714
+		},
+		{
+			"label": "verso",
+			"time": 116.571
+		},
+		{
+			"label": "pré-refrão",
+			"time": 144
+		},
+		{
+			"label": "refrão",
+			"time": 171.429
+		},
+		{
+			"label": "solo",
+			"time": 198.857
+		},
+		{
+			"label": "refrão",
+			"time": 216
+		},
+		{
+			"label": "outro",
+			"time": 246.857
+		},
+		{
+			"label": "final",
+			"time": 260.571
+		}
+	]
+}
