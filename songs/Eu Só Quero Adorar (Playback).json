@@ -21,6 +21,10 @@
 			"time": 85.714
 		},
 		{
+			"label": "interlúdio",
+			"time": 113.143
+		},
+		{
 			"label": "verso",
 			"time": 116.571
 		},
@@ -42,7 +46,7 @@
 		},
 		{
 			"label": "outro",
-			"time": 246.857
+			"time": 243.429
 		},
 		{
 			"label": "final",
