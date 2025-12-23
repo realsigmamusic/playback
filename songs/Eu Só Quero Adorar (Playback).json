@@ -1,8 +1,8 @@
 {
-	"title": "Eu Só Quero Adorar",
+	"title": "Eu Só Quero Adorar (Playback)",
 	"artist": "Gerson Rufino",
 	"key": "C",
-	"bpm": 70,
+	"bpm": 70.0,
 	"sections": [
 		{
 			"label": "intro",

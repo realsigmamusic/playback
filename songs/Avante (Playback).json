@@ -1,0 +1,80 @@
+{
+	"title": "Avante (Playback)",
+	"artist": "Israel Salazar",
+	"bpm": 106.0,
+	"key": "D#m",
+	"sections": [
+		{
+			"label": "intro",
+			"time": 2.26
+		},
+		{
+			"label": "verso",
+			"time": 29.43
+		},
+		{
+			"label": "verso",
+			"time": 47.55
+		},
+		{
+			"label": "pré-refrão",
+			"time": 65.66
+		},
+		{
+			"label": "refrão",
+			"time": 83.77
+		},
+		{
+			"label": "solo",
+			"time": 106.42
+		},
+		{
+			"label": "pré-refrão",
+			"time": 115.47
+		},
+		{
+			"label": "refrão",
+			"time": 133.58
+		},
+		{
+			"label": "refrão",
+			"time": 151.70
+		},
+		{
+			"label": "outro",
+			"time": 169.81
+		},
+		{
+			"label": "ministração",
+			"time": 192.45
+		},
+		{
+			"label": "ponte",
+			"time": 210.57
+		},
+		{
+			"label": "ponte",
+			"time": 228.68
+		},
+		{
+			"label": "ponte",
+			"time": 246.79
+		},
+		{
+			"label": "refrão",
+			"time": 264.91
+		},
+		{
+			"label": "refrão",
+			"time": 283.02
+		},
+		{
+			"label": "outro",
+			"time": 301.13
+		},
+		{
+			"label": "final",
+			"time": 323.77
+		}
+	]
+}
