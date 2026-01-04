@@ -1,11 +1,11 @@
-const CACHE_NAME = 'v1.0.0';
+const CACHE_NAME = 'v1.1.0';
 const ASSETS = [
 	'./',
 	'./index.html',
 	'./style.css',
 	'./main.js',
 	'./manifest.json',
-	'./icon.png'
+	'./maskable_icon_x512.png'
 ];
 
 // 1. Instalação: Salva os arquivos no cache
