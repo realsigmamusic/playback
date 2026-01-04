@@ -21,6 +21,8 @@
 
 ---
 
+<a href="https://www.flaticon.com/free-icons/microphone" title="microphone icons">Microphone icons created by Freepik - Flaticon</a>
+
 ## 📖 Sobre o Projeto
 
 O **Playback Pro** nasceu da necessidade de igrejas e pequenos grupos que utilizam playback ou VS **(L & R)** e precisam de controle total sobre a estrutura da música ao vivo, sem depender de softwares complexos de DAW (como Ableton Live) ou operadores técnicos especializados.
