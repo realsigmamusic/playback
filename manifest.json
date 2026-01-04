@@ -1,13 +1,13 @@
 {
 	"name": "Playback Pro",
-	"short_name": "Playback Pro",
+	"short_name": "Playback",
 	"start_url": "index.html",
 	"display": "standalone",
-	"background_color": "#212529",
+	"background_color": "#ffffff",
 	"theme_color": "#212529",
 	"icons": [
 		{
-			"src": "https://cdn-icons-png.flaticon.com/512/4344/4344933.png",
+			"src": "maskable_icon_x512.png",
 			"sizes": "512x512",
 			"type": "image/png"
 		}
